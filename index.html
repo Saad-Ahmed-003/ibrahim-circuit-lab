@@ -428,6 +428,321 @@
     align-items: flex-start;
   }
   .pencil-hint-icon { font-size: 1.8rem; flex-shrink: 0; }
+
+  /* ══════════════════════════════════════════════
+     ── RESISTOR COLOUR CODE SECTION (NEW) ──
+  ══════════════════════════════════════════════ */
+
+  /* Band display for colour code decoder */
+  .resistor-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 2rem 0 1rem;
+    position: relative;
+  }
+  .r-lead {
+    width: 50px; height: 4px;
+    background: var(--muted);
+    border-radius: 2px;
+  }
+  .r-body {
+    display: flex;
+    align-items: stretch;
+    height: 34px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    min-width: 140px;
+  }
+  .r-body-bg {
+    position: absolute; inset: 0;
+    background: #c8a060;
+    border-radius: 10px;
+  }
+  .r-band {
+    width: 16px;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+  .r-gap { width: 14px; position: relative; z-index: 2; flex-shrink: 0; }
+  .r-gap-wide { width: 24px; position: relative; z-index: 2; flex-shrink: 0; }
+
+  /* Interactive decoder */
+  .rcode-decoder {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    margin: 2rem 0;
+  }
+  .rcode-decoder-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+  }
+  .band-selectors {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-bottom: 1.4rem;
+  }
+  .band-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .band-selector label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .band-selector select {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    outline: none;
+    width: 130px;
+    transition: border-color 0.2s;
+  }
+  .band-selector select:focus { border-color: var(--amber); }
+  .band-preview {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 2px solid rgba(255,255,255,0.1);
+    margin-top: 0.3rem;
+  }
+  .rcode-result {
+    background: var(--card2);
+    border: 1px solid rgba(245,165,35,0.3);
+    border-radius: 10px;
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .rcode-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--amber);
+  }
+  .rcode-label {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+  .rcode-tolerance {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--purple);
+    margin-left: auto;
+  }
+
+  /* Colour band quick-ref table */
+  .colour-ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.65rem;
+    margin: 1.5rem 0;
+  }
+  .colour-ref-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 0.55rem 0.9rem;
+  }
+  .colour-swatch {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .colour-info { font-size: 0.87rem; }
+  .colour-name { font-weight: 800; color: var(--white); }
+  .colour-digits { font-family: 'Orbitron', monospace; font-size: 0.72rem; color: var(--muted); }
+
+  /* The three kit resistors */
+  .kit-resistor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.8rem 0;
+  }
+  .kit-resistor-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 1.3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .kit-resistor-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--amber);
+  }
+  .kit-r-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--amber);
+    margin-bottom: 0.15rem;
+  }
+  .kit-r-fullname {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.9rem;
+  }
+  .kit-r-bands {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 1rem;
+  }
+  .kit-r-band-swatch {
+    width: 18px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+  }
+  .kit-r-band-gap { width: 10px; }
+  .kit-r-band-gap-wide { width: 16px; }
+  .kit-r-band-body {
+    width: 22px; height: 26px;
+    background: #c8a060;
+    border-radius: 4px;
+    opacity: 0.35;
+    flex-shrink: 0;
+  }
+  .kit-r-usage {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .kit-r-usage strong { color: var(--green); }
+  .kit-r-memory {
+    margin-top: 0.7rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    border-top: 1px solid var(--border);
+    padding-top: 0.6rem;
+  }
+
+  /* Tolerance callout strip */
+  .tolerance-strip {
+    background: rgba(192,132,252,0.06);
+    border: 1px solid rgba(192,132,252,0.25);
+    border-radius: 10px;
+    padding: 1rem 1.3rem;
+    margin: 1.2rem 0;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .tol-item { flex: 1; min-width: 120px; }
+  .tol-band {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .tol-label { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; color: var(--purple); }
+  .tol-desc { font-size: 0.84rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* Multimeter read worksheet */
+  .multimeter-ws {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem;
+    margin: 1.4rem 0;
+  }
+  .multimeter-ws-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .ws-row {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(26,46,74,0.7);
+    flex-wrap: wrap;
+  }
+  .ws-row:last-child { border-bottom: none; }
+  .ws-resistor-bands {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .ws-band {
+    width: 12px; height: 20px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .ws-band-gap { width: 7px; }
+  .ws-arrow { color: var(--muted); font-size: 1rem; }
+  .ws-expected {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--amber);
+    min-width: 70px;
+  }
+  .ws-measured-label {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-left: auto;
+  }
+  .ws-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed var(--border);
+    color: var(--green);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.82rem;
+    width: 90px;
+    outline: none;
+    padding: 2px 4px;
+  }
+  .ws-input:focus { border-bottom-color: var(--green); }
 </style>
 </head>
 <body>
@@ -1017,6 +1332,452 @@
 
   </div>
 
+
+  <!-- ══════════════════════════════════════════════════════════════
+       ═══ NEW SECTION 5.5: READING RESISTOR COLOUR CODES ════════
+  ══════════════════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background: var(--purple); font-size:0.62rem;">5½</div>
+      <div class="section-title" style="color: var(--purple);">Reading Resistor Colour Codes — Pick the Right One Every Time</div>
+    </div>
+
+    <p>You now know that resistors are essential — and you have three different values in your kit: <strong>330Ω, 1kΩ, and 10kΩ</strong>. The problem is they all look identical from the outside. How do you tell them apart without a multimeter? The answer is painted right on the resistor body: <strong>coloured bands</strong>.</p>
+
+    <p>This system was invented in the 1920s because resistor bodies were too small to print numbers on clearly. The colour code has been standard ever since — every electronics engineer in the world uses the same code. Once you know it, you can instantly identify any resistor just by looking at it.</p>
+
+    <div class="subsection">
+      <div class="subsection-title">5.5.1 — What the Bands Mean</div>
+    </div>
+
+    <p>Most resistors you'll use as a beginner have <strong>4 bands</strong>. Here's what each band position means:</p>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 680 180" xmlns="http://www.w3.org/2000/svg" style="max-height:180px">
+        <rect width="680" height="180" fill="#0f1c30" rx="10"/>
+        <text x="340" y="20" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" fill="#6b82a0" letter-spacing="2">THE 4-BAND RESISTOR</text>
+
+        <!-- Lead left -->
+        <line x1="40" y1="90" x2="140" y2="90" stroke="#aaa" stroke-width="3" stroke-linecap="round"/>
+        <!-- Resistor body -->
+        <rect x="140" y="68" width="280" height="44" rx="14" fill="#c8a060"/>
+        <!-- Band 1 (orange) -->
+        <rect x="168" y="68" width="22" height="44" rx="3" fill="#ff6b00"/>
+        <!-- Band 2 (orange) -->
+        <rect x="206" y="68" width="22" height="44" rx="3" fill="#ff6b00"/>
+        <!-- Band 3 (brown) -->
+        <rect x="244" y="68" width="22" height="44" rx="3" fill="#8B4513"/>
+        <!-- Gap before tolerance -->
+        <!-- Band 4 (gold) - wider gap -->
+        <rect x="366" y="68" width="22" height="44" rx="3" fill="#FFD700"/>
+        <!-- Lead right -->
+        <line x1="420" y1="90" x2="520" y2="90" stroke="#aaa" stroke-width="3" stroke-linecap="round"/>
+
+        <!-- Labels below resistor -->
+        <!-- Band 1 label -->
+        <line x1="179" y1="112" x2="179" y2="130" stroke="#f5a523" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="179" y="143" text-anchor="middle" font-family="Orbitron,monospace" font-size="9" fill="#f5a523" font-weight="700">BAND 1</text>
+        <text x="179" y="156" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#dde6f0">1st digit</text>
+
+        <!-- Band 2 label -->
+        <line x1="217" y1="112" x2="217" y2="130" stroke="#f5a523" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="217" y="143" text-anchor="middle" font-family="Orbitron,monospace" font-size="9" fill="#f5a523" font-weight="700">BAND 2</text>
+        <text x="217" y="156" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#dde6f0">2nd digit</text>
+
+        <!-- Band 3 label -->
+        <line x1="255" y1="112" x2="255" y2="130" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="255" y="143" text-anchor="middle" font-family="Orbitron,monospace" font-size="9" fill="#38bdf8" font-weight="700">BAND 3</text>
+        <text x="255" y="156" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#dde6f0">Multiplier</text>
+        <text x="255" y="168" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9" fill="#6b82a0">(× how many zeros)</text>
+
+        <!-- Band 4 label -->
+        <line x1="377" y1="112" x2="377" y2="130" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="377" y="143" text-anchor="middle" font-family="Orbitron,monospace" font-size="9" fill="#c084fc" font-weight="700">BAND 4</text>
+        <text x="377" y="156" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#dde6f0">Tolerance</text>
+        <text x="377" y="168" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9" fill="#6b82a0">(how accurate)</text>
+
+        <!-- Wide gap label -->
+        <text x="320" y="148" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9" fill="#3a5070" font-style="italic">← wider gap</text>
+
+        <!-- Formula on right -->
+        <text x="560" y="80" text-anchor="middle" font-family="Nunito,sans-serif" font-size="12" fill="#dde6f0" font-weight="800">Value =</text>
+        <text x="560" y="97" text-anchor="middle" font-family="Orbitron,monospace" font-size="11" fill="#f5a523" font-weight="900">(B1 B2) × B3</text>
+        <text x="560" y="114" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#6b82a0">first two digits,</text>
+        <text x="560" y="127" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#6b82a0">then multiply by</text>
+        <text x="560" y="140" text-anchor="middle" font-family="Nunito,sans-serif" font-size="10" fill="#6b82a0">the 3rd band's value</text>
+      </svg>
+      <div class="diagram-caption">A 4-band resistor. The first two bands give you two digits. The third band is the multiplier — it tells you how many zeros to add. The fourth band (always separated by a larger gap) tells you the tolerance.</div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">5.5.2 — The Full Colour-to-Number Table</div>
+    </div>
+
+    <p>Every colour maps to a number from 0 to 9. This is the code. You'll use it hundreds of times, so it's worth memorising. A classic memory trick: <em>"<strong>B</strong>lack <strong>B</strong>rown <strong>R</strong>ed <strong>O</strong>range <strong>Y</strong>ellow <strong>G</strong>reen <strong>B</strong>lue <strong>V</strong>iolet <strong>G</strong>rey <strong>W</strong>hite"</em> — the first letter of each word = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.</p>
+
+    <div class="colour-ref-grid">
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#1a1a1a;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Black</div>
+          <div class="colour-digits">Digit: 0 &nbsp;·&nbsp; Multiplier: ×1</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#8B4513;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Brown</div>
+          <div class="colour-digits">Digit: 1 &nbsp;·&nbsp; Multiplier: ×10</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#cc2200;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Red</div>
+          <div class="colour-digits">Digit: 2 &nbsp;·&nbsp; Multiplier: ×100</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#ff6b00;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Orange</div>
+          <div class="colour-digits">Digit: 3 &nbsp;·&nbsp; Multiplier: ×1,000</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#ccaa00;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Yellow</div>
+          <div class="colour-digits">Digit: 4 &nbsp;·&nbsp; Multiplier: ×10,000</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#2a8a2a;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Green</div>
+          <div class="colour-digits">Digit: 5 &nbsp;·&nbsp; Multiplier: ×100,000</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#1a50cc;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Blue</div>
+          <div class="colour-digits">Digit: 6 &nbsp;·&nbsp; Multiplier: ×1,000,000</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#8b00cc;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Violet</div>
+          <div class="colour-digits">Digit: 7 &nbsp;·&nbsp; Multiplier: ×10,000,000</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#808080;"></div>
+        <div class="colour-info">
+          <div class="colour-name">Grey</div>
+          <div class="colour-digits">Digit: 8 &nbsp;·&nbsp; (rare as multiplier)</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#e8e8e8; border-color:rgba(255,255,255,0.3);"></div>
+        <div class="colour-info">
+          <div class="colour-name">White</div>
+          <div class="colour-digits">Digit: 9 &nbsp;·&nbsp; (rare as multiplier)</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background: linear-gradient(135deg,#FFD700,#c8a830);"></div>
+        <div class="colour-info">
+          <div class="colour-name" style="color:var(--purple);">Gold</div>
+          <div class="colour-digits">Tolerance band only: ±5%</div>
+        </div>
+      </div>
+      <div class="colour-ref-row">
+        <div class="colour-swatch" style="background:#aaa;"></div>
+        <div class="colour-info">
+          <div class="colour-name" style="color:var(--purple);">Silver</div>
+          <div class="colour-digits">Tolerance band only: ±10%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-title">🧠 A Shortcut That Always Works</div>
+      You almost never need to remember the multiplier by its number. Instead, just count the bands 1 and 2 together to form a two-digit number, then count how many zeros the multiplier band adds. Brown = 1 zero. Red = 2 zeros. Orange = 3 zeros. For the values you'll use most often (resistors in the hundreds to thousands), you'll only ever see Brown, Red, or Orange as the multiplier.
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">5.5.3 — The Tolerance Band (Band 4)</div>
+    </div>
+
+    <p>The fourth band tells you how precisely the resistor is made. A resistor labelled 330Ω with a gold band (±5%) might actually be anywhere between <strong>313.5Ω and 346.5Ω</strong> — still totally fine for LED circuits, but worth knowing about.</p>
+
+    <div class="tolerance-strip">
+      <div class="tol-item">
+        <span class="tol-band" style="background: linear-gradient(135deg,#FFD700,#c8a830);"></span>
+        <span class="tol-label">GOLD = ±5%</span>
+        <div class="tol-desc">The most common tolerance you'll encounter. Fine for everything in this course.</div>
+      </div>
+      <div class="tol-item">
+        <span class="tol-band" style="background:#aaa;"></span>
+        <span class="tol-label">SILVER = ±10%</span>
+        <div class="tol-desc">Older or cheaper resistors. Still works fine for basic circuits.</div>
+      </div>
+      <div class="tol-item">
+        <span class="tol-band" style="background:#8B4513;"></span>
+        <span class="tol-label">BROWN = ±1%</span>
+        <div class="tol-desc">Precision resistors — 5-band type. You'll see these in more advanced work later.</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">5.5.4 — Your Three Kit Resistors, Decoded</div>
+    </div>
+
+    <p>Here are the exact three resistors you're using today. Study these carefully — pick them out of your kit right now and confirm each one.</p>
+
+    <div class="kit-resistor-grid">
+
+      <!-- 330Ω -->
+      <div class="kit-resistor-card">
+        <div class="kit-r-value">330Ω</div>
+        <div class="kit-r-fullname">330 Ohms — "three-thirty"</div>
+        <div class="kit-r-bands">
+          <!-- Body background suggestion -->
+          <div style="display:flex;align-items:center;gap:2px;">
+            <div class="kit-r-band-swatch" style="background:#ff6b00;" title="Orange = 3"></div>
+            <div class="kit-r-band-gap"></div>
+            <div class="kit-r-band-swatch" style="background:#ff6b00;" title="Orange = 3"></div>
+            <div class="kit-r-band-gap"></div>
+            <div class="kit-r-band-swatch" style="background:#8B4513;" title="Brown = ×10"></div>
+            <div class="kit-r-band-gap-wide"></div>
+            <div class="kit-r-band-swatch" style="background:#FFD700;" title="Gold = ±5%"></div>
+          </div>
+        </div>
+        <div class="kit-r-usage">
+          <strong>How to read it:</strong> Orange (3) · Orange (3) · Brown (×10) · Gold<br>
+          33 × 10 = 330Ω ✓
+        </div>
+        <div class="kit-r-usage" style="margin-top:0.6rem;">
+          <strong>When to use it:</strong> Your go-to resistor for LEDs with a 9V battery. This is the one that keeps your LED in its happy 20mA zone.
+        </div>
+        <div class="kit-r-memory">
+          💡 Memory aid: <em>"Orange Orange Brown" — three threes = 330.</em>
+        </div>
+      </div>
+
+      <!-- 1kΩ -->
+      <div class="kit-resistor-card">
+        <div class="kit-r-value">1kΩ</div>
+        <div class="kit-r-fullname">1,000 Ohms — "one kilo-ohm"</div>
+        <div class="kit-r-bands">
+          <div style="display:flex;align-items:center;gap:2px;">
+            <div class="kit-r-band-swatch" style="background:#8B4513;" title="Brown = 1"></div>
+            <div class="kit-r-band-gap"></div>
+            <div class="kit-r-band-swatch" style="background:#1a1a1a;" title="Black = 0"></div>
+            <div class="kit-r-band-gap"></div>
+            <div class="kit-r-band-swatch" style="background:#cc2200;" title="Red = ×100"></div>
+            <div class="kit-r-band-gap-wide"></div>
+            <div class="kit-r-band-swatch" style="background:#FFD700;" title="Gold = ±5%"></div>
+          </div>
+        </div>
+        <div class="kit-r-usage">
+          <strong>How to read it:</strong> Brown (1) · Black (0) · Red (×100) · Gold<br>
+          10 × 100 = 1,000Ω = 1kΩ ✓
+        </div>
+        <div class="kit-r-usage" style="margin-top:0.6rem;">
+          <strong>When to use it:</strong> A dimmer LED. Also used for signal-level resistances when working with Arduino inputs and pull-up/pull-down configurations.
+        </div>
+        <div class="kit-r-memory">
+          💡 Memory aid: <em>"Brown Black Red" — 1, 0, then ×100 = 1000.</em>
+        </div>
+      </div>
+
+      <!-- 10kΩ -->
+      <div class="kit-resistor-card">
+        <div class="kit-r-value">10kΩ</div>
+        <div class="kit-r-fullname">10,000 Ohms — "ten kilo-ohm"</div>
+        <div class="kit-r-bands">
+          <div style="display:flex;align-items:center;gap:2px;">
+            <div class="kit-r-band-swatch" style="background:#8B4513;" title="Brown = 1"></div>
+            <div class="kit-r-band-gap"></div>
+            <div class="kit-r-band-swatch" style="background:#1a1a1a;" title="Black = 0"></div>
+            <div class="kit-r-band-gap"></div>
+            <div class="kit-r-band-swatch" style="background:#ff6b00;" title="Orange = ×1000"></div>
+            <div class="kit-r-band-gap-wide"></div>
+            <div class="kit-r-band-swatch" style="background:#FFD700;" title="Gold = ±5%"></div>
+          </div>
+        </div>
+        <div class="kit-r-usage">
+          <strong>How to read it:</strong> Brown (1) · Black (0) · Orange (×1,000) · Gold<br>
+          10 × 1,000 = 10,000Ω = 10kΩ ✓
+        </div>
+        <div class="kit-r-usage" style="margin-top:0.6rem;">
+          <strong>When to use it:</strong> Very dim or barely-visible LED. Much more important later as a pull-up/pull-down resistor with buttons and sensors — the most common resistor in Arduino circuits.
+        </div>
+        <div class="kit-r-memory">
+          💡 Memory aid: <em>"Brown Black Orange" — same start as 1k, but Orange multiplier = 10x bigger.</em>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout amber">
+      <div class="callout-title">📌 The Quick Comparison — 1kΩ vs 10kΩ</div>
+      These two look very similar — the only difference is the third band. 1kΩ has a <strong style="color:#cc2200;">Red</strong> multiplier band. 10kΩ has an <strong style="color:#ff9040;">Orange</strong> multiplier band. If you mix them up, your circuit will still work — just with a much dimmer LED. Always double-check the third band when these two are in the same pile.
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">5.5.5 — Interactive Decoder: Try Any Resistor</div>
+    </div>
+
+    <p>Use the decoder below to check your reading. Select colours for each band and watch the value calculate live. Pick up a random resistor from your kit and try to decode it yourself first — then verify here.</p>
+
+    <div class="rcode-decoder">
+      <div class="rcode-decoder-title">🎛 Colour Code Decoder</div>
+      <div class="band-selectors">
+        <div class="band-selector">
+          <label>Band 1 (1st digit)</label>
+          <select id="band1" onchange="decodeResistor()">
+            <option value="0" data-color="#1a1a1a">Black — 0</option>
+            <option value="1" data-color="#8B4513">Brown — 1</option>
+            <option value="2" data-color="#cc2200">Red — 2</option>
+            <option value="3" data-color="#ff6b00" selected>Orange — 3</option>
+            <option value="4" data-color="#ccaa00">Yellow — 4</option>
+            <option value="5" data-color="#2a8a2a">Green — 5</option>
+            <option value="6" data-color="#1a50cc">Blue — 6</option>
+            <option value="7" data-color="#8b00cc">Violet — 7</option>
+            <option value="8" data-color="#808080">Grey — 8</option>
+            <option value="9" data-color="#e8e8e8">White — 9</option>
+          </select>
+          <div class="band-preview" id="preview1" style="background:#ff6b00;"></div>
+        </div>
+        <div class="band-selector">
+          <label>Band 2 (2nd digit)</label>
+          <select id="band2" onchange="decodeResistor()">
+            <option value="0" data-color="#1a1a1a">Black — 0</option>
+            <option value="1" data-color="#8B4513">Brown — 1</option>
+            <option value="2" data-color="#cc2200">Red — 2</option>
+            <option value="3" data-color="#ff6b00" selected>Orange — 3</option>
+            <option value="4" data-color="#ccaa00">Yellow — 4</option>
+            <option value="5" data-color="#2a8a2a">Green — 5</option>
+            <option value="6" data-color="#1a50cc">Blue — 6</option>
+            <option value="7" data-color="#8b00cc">Violet — 7</option>
+            <option value="8" data-color="#808080">Grey — 8</option>
+            <option value="9" data-color="#e8e8e8">White — 9</option>
+          </select>
+          <div class="band-preview" id="preview2" style="background:#ff6b00;"></div>
+        </div>
+        <div class="band-selector">
+          <label>Band 3 (Multiplier)</label>
+          <select id="band3" onchange="decodeResistor()">
+            <option value="1" data-color="#1a1a1a">Black — ×1</option>
+            <option value="10" data-color="#8B4513" selected>Brown — ×10</option>
+            <option value="100" data-color="#cc2200">Red — ×100</option>
+            <option value="1000" data-color="#ff6b00">Orange — ×1,000</option>
+            <option value="10000" data-color="#ccaa00">Yellow — ×10,000</option>
+            <option value="100000" data-color="#2a8a2a">Green — ×100,000</option>
+            <option value="1000000" data-color="#1a50cc">Blue — ×1,000,000</option>
+          </select>
+          <div class="band-preview" id="preview3" style="background:#8B4513;"></div>
+        </div>
+        <div class="band-selector">
+          <label>Band 4 (Tolerance)</label>
+          <select id="band4" onchange="decodeResistor()">
+            <option value="±5%" data-color="#FFD700" selected>Gold — ±5%</option>
+            <option value="±10%" data-color="#aaaaaa">Silver — ±10%</option>
+            <option value="±1%" data-color="#8B4513">Brown — ±1%</option>
+            <option value="±2%" data-color="#cc2200">Red — ±2%</option>
+          </select>
+          <div class="band-preview" id="preview4" style="background:#FFD700;"></div>
+        </div>
+      </div>
+      <div class="rcode-result">
+        <div>
+          <div class="rcode-value" id="result-value">330 Ω</div>
+          <div class="rcode-label" id="result-label">330 Ohms — the LED-safe resistor</div>
+        </div>
+        <div class="rcode-tolerance" id="result-tolerance">±5%  (Gold)</div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">5.5.6 — Confirm With Your Multimeter</div>
+    </div>
+
+    <p>Reading the colour code is how you identify a resistor quickly. But your multimeter can confirm the exact value — and it's a great way to train yourself on the code by checking your readings. Here's how:</p>
+
+    <ol class="steps">
+      <li><span>Set your multimeter dial to the <strong>resistance (Ω) setting</strong>. There is usually a range selector — if so, start at the 2kΩ range for the 330Ω and 1kΩ resistors, and the 20kΩ range for the 10kΩ resistor. (Some multimeters are auto-ranging and do this for you.)</span></li>
+      <li><span>Touch the red probe to one leg of the resistor and the black probe to the other leg. Polarity doesn't matter for resistors — either way around gives the same reading.</span></li>
+      <li><span>Read the display. For a 330Ω resistor, you might see a number like 327 or 334 — that's normal. Remember the ±5% tolerance means any reading between ~314Ω and ~347Ω is correct.</span></li>
+    </ol>
+
+    <div class="multimeter-ws">
+      <div class="multimeter-ws-title">📋 Resistor Reading Worksheet — Fill in Your Measurements</div>
+
+      <div class="ws-row">
+        <div class="ws-resistor-bands">
+          <div class="ws-band" style="background:#ff6b00;"></div>
+          <div class="ws-band-gap"></div>
+          <div class="ws-band" style="background:#ff6b00;"></div>
+          <div class="ws-band-gap"></div>
+          <div class="ws-band" style="background:#8B4513;"></div>
+          <div class="ws-band-gap" style="width:14px;"></div>
+          <div class="ws-band" style="background:#FFD700;"></div>
+        </div>
+        <div class="ws-arrow">→</div>
+        <div class="ws-expected">330 Ω</div>
+        <div class="ws-measured-label">Your multimeter reading:</div>
+        <input class="ws-input" placeholder="e.g. 328">
+        <span style="font-size:0.82rem; color:var(--muted); margin-left:0.4rem;">Ω</span>
+      </div>
+
+      <div class="ws-row">
+        <div class="ws-resistor-bands">
+          <div class="ws-band" style="background:#8B4513;"></div>
+          <div class="ws-band-gap"></div>
+          <div class="ws-band" style="background:#1a1a1a;"></div>
+          <div class="ws-band-gap"></div>
+          <div class="ws-band" style="background:#cc2200;"></div>
+          <div class="ws-band-gap" style="width:14px;"></div>
+          <div class="ws-band" style="background:#FFD700;"></div>
+        </div>
+        <div class="ws-arrow">→</div>
+        <div class="ws-expected">1,000 Ω</div>
+        <div class="ws-measured-label">Your multimeter reading:</div>
+        <input class="ws-input" placeholder="e.g. 982">
+        <span style="font-size:0.82rem; color:var(--muted); margin-left:0.4rem;">Ω</span>
+      </div>
+
+      <div class="ws-row">
+        <div class="ws-resistor-bands">
+          <div class="ws-band" style="background:#8B4513;"></div>
+          <div class="ws-band-gap"></div>
+          <div class="ws-band" style="background:#1a1a1a;"></div>
+          <div class="ws-band-gap"></div>
+          <div class="ws-band" style="background:#ff6b00;"></div>
+          <div class="ws-band-gap" style="width:14px;"></div>
+          <div class="ws-band" style="background:#FFD700;"></div>
+        </div>
+        <div class="ws-arrow">→</div>
+        <div class="ws-expected">10,000 Ω</div>
+        <div class="ws-measured-label">Your multimeter reading:</div>
+        <input class="ws-input" placeholder="e.g. 9870">
+        <span style="font-size:0.82rem; color:var(--muted); margin-left:0.4rem;">Ω</span>
+      </div>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-title">✅ You're Now Resistor-Literate</div>
+      After this section, you should be able to pick any resistor out of a pile and know its value within seconds — just from looking at the colour bands. This is a skill every electronics hobbyist and engineer uses constantly. The three resistors in your kit are the ones you'll meet most often for the next several sessions.
+    </div>
+
+  </div>
+  <!-- ═══ END OF NEW SECTION 5.5 ═══ -->
+
+
   <!-- ═══ SECTION 6: THE BREADBOARD ═══ -->
   <div class="section">
     <div class="section-header">
@@ -1169,6 +1930,8 @@
         <circle cx="155" cy="263" r="3.5" fill="#0a1520" stroke="#38bdf8" stroke-width="1"/>
         <circle cx="180" cy="263" r="3.5" fill="#0a1520" stroke="#38bdf8" stroke-width="1"/>
         <circle cx="205" cy="263" r="3.5" fill="#0a1520" stroke="#38bdf8" stroke-width="1"/>
+        <circle cx="250" cy="263" r="3.5" fill="#38bdf8" stroke="#38bdf8" stroke-width="1"/>
+        <circle cx="275" cy="263" r="3.5" fill="#0a1520" stroke="#38bdf8" stroke-width="1"/>
         <line x1="72" y1="263" x2="590" y2="263" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.4"/>
         <text x="620" y="267" font-family="Nunito,sans-serif" font-size="9" fill="#38bdf8" font-weight="800">←all holes</text>
         <text x="620" y="278" font-family="Nunito,sans-serif" font-size="9" fill="#38bdf8">connected!</text>
@@ -1412,7 +2175,7 @@
     </div>
 
     <ol class="steps">
-      <li><span><strong>Place the resistor:</strong> Push one leg into row a, column 3 and the other leg into row a, column 5. The resistor body sits flat across the two columns.</span></li>
+      <li><span><strong>Place the resistor:</strong> Push one leg into row a, column 3 and the other leg into row a, column 5. The resistor body sits flat across the two columns. (Remember from Section 5½ — confirm it's your 330Ω by checking for Orange·Orange·Brown bands before placing it.)</span></li>
       <li><span><strong>Red jumper wire:</strong> Connect a hole in the + power rail to column 3, row a (where the resistor leg is). This connects battery power to the resistor.</span></li>
       <li><span><strong>Yellow/orange bridge wire:</strong> Connect column 5 row a (the other resistor leg) to column 5 row f on the bottom bank. This carries current across the gap to the LED side.</span></li>
       <li><span><strong>Place the LED:</strong> Long leg (+) into column 5 row f. Short leg (−) into column 7 row f. The LED should straddle across two columns.</span></li>
@@ -1441,8 +2204,8 @@
     </div>
     <ol class="steps">
       <li><span>Your circuit currently has a 330Ω resistor. Note the LED brightness. <strong>Disconnect the battery.</strong></span></li>
-      <li><span>Swap the 330Ω for a <strong>1kΩ resistor</strong> (1000 Ohms). Reconnect the battery. Is the LED brighter or dimmer? Why?</span></li>
-      <li><span>Disconnect again. Swap for a <strong>10kΩ resistor</strong> (10,000 Ohms). Reconnect. What happened to the LED now?</span></li>
+      <li><span>Swap the 330Ω for a <strong>1kΩ resistor</strong> (1000 Ohms). You identified this one in Section 5½ — it's Brown·Black·Red·Gold. Reconnect the battery. Is the LED brighter or dimmer? Why?</span></li>
+      <li><span>Disconnect again. Swap for a <strong>10kΩ resistor</strong> (10,000 Ohms) — Brown·Black·Orange·Gold. Reconnect. What happened to the LED now?</span></li>
       <li><span>Put the 330Ω back. Confirm the LED is bright again.</span></li>
     </ol>
     <div class="callout green" style="margin:1rem 0 1.5rem;">
@@ -1496,6 +2259,8 @@
       <div class="learned-item">Why LEDs glow (semiconductor physics)</div>
       <div class="learned-item">What happens without a resistor</div>
       <div class="learned-item">LED polarity (why direction matters)</div>
+      <div class="learned-item">Reading resistor colour codes</div>
+      <div class="learned-item">Identifying your 3 kit resistors by sight</div>
       <div class="learned-item">Every zone of the breadboard</div>
       <div class="learned-item">Built and troubleshot a real circuit</div>
       <div class="learned-item">Variable resistance with graphite</div>
@@ -1514,5 +2279,58 @@
   </div>
 
 </div>
+
+<script>
+  // ── COLOUR CODE DECODER ──
+  const colourData = {
+    band1: { 0:'#1a1a1a', 1:'#8B4513', 2:'#cc2200', 3:'#ff6b00', 4:'#ccaa00', 5:'#2a8a2a', 6:'#1a50cc', 7:'#8b00cc', 8:'#808080', 9:'#e8e8e8' },
+    band2: { 0:'#1a1a1a', 1:'#8B4513', 2:'#cc2200', 3:'#ff6b00', 4:'#ccaa00', 5:'#2a8a2a', 6:'#1a50cc', 7:'#8b00cc', 8:'#808080', 9:'#e8e8e8' },
+    band3: { 1:'#1a1a1a', 10:'#8B4513', 100:'#cc2200', 1000:'#ff6b00', 10000:'#ccaa00', 100000:'#2a8a2a', 1000000:'#1a50cc' },
+    band4: { '±5%':'#FFD700', '±10%':'#aaaaaa', '±1%':'#8B4513', '±2%':'#cc2200' }
+  };
+
+  function decodeResistor() {
+    const b1 = document.getElementById('band1');
+    const b2 = document.getElementById('band2');
+    const b3 = document.getElementById('band3');
+    const b4 = document.getElementById('band4');
+
+    const d1 = parseInt(b1.value);
+    const d2 = parseInt(b2.value);
+    const mult = parseInt(b3.value);
+    const tol = b4.value;
+
+    // Update previews
+    document.getElementById('preview1').style.background = colourData.band1[d1] || '#888';
+    document.getElementById('preview2').style.background = colourData.band2[d2] || '#888';
+    document.getElementById('preview3').style.background = colourData.band3[mult] || '#888';
+    document.getElementById('preview4').style.background = colourData.band4[tol] || '#888';
+
+    const value = (d1 * 10 + d2) * mult;
+
+    let displayValue, displayLabel;
+    if (value >= 1000000) {
+      displayValue = (value / 1000000).toFixed(value % 1000000 === 0 ? 0 : 2) + ' MΩ';
+      displayLabel = (value / 1000000) + ' Megaohms';
+    } else if (value >= 1000) {
+      displayValue = (value / 1000).toFixed(value % 1000 === 0 ? 0 : 1) + ' kΩ';
+      displayLabel = (value / 1000) + ' kilohms';
+    } else {
+      displayValue = value + ' Ω';
+      displayLabel = value + ' Ohms';
+    }
+
+    // Add common name hint
+    const hints = { 330: '— the LED-safe resistor', 1000: '— common signal resistor', 10000: '— common pull-up/pull-down', 100: '— small limiter', 470: '— LED variant', 4700: '— mid-range', 47000: '— high impedance' };
+    const hint = hints[value] || '';
+
+    document.getElementById('result-value').textContent = displayValue;
+    document.getElementById('result-label').textContent = displayLabel + (hint ? ' ' + hint : '');
+    document.getElementById('result-tolerance').textContent = tol + '  (' + b4.options[b4.selectedIndex].text.split('—')[0].trim() + ')';
+  }
+
+  // Initialise on load
+  decodeResistor();
+</script>
 </body>
 </html>
